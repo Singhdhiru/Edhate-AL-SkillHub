@@ -7,8 +7,9 @@ Shared AI skills for Microsoft Dynamics 365 Business Central AL development. Dev
 | Skill | Use it for |
 | --- | --- |
 | [edhate-bc-api-integration](skills/edhate-bc-api-integration/SKILL.md) | Inbound APIs, outbound HTTP calls, authentication decisions, synchronization, and failure recovery |
+| [edhate-bc-mcp-server](skills/edhate-bc-mcp-server/SKILL.md) | Build and test MCP servers exposing Business Central operations to AI assistants |
 
-This collection currently contains one independently maintained skill. Its guidance adapts to the consuming project; company-specific standards must be documented before they are treated as requirements.
+This collection currently contains two independently maintained skills. Its guidance adapts to the consuming project; company-specific standards must be documented before they are treated as requirements.
 
 ## Get started
 
