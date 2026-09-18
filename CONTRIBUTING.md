@@ -32,3 +32,11 @@ When the Codex skill-creator validator is available, run its `scripts/quick_vali
 Review whether the skill preserves the user's task scope, avoids invented API details, adapts to the target Business Central version, and respects deployment authorization. Live deployment or customer data changes are not part of routine skill testing.
 
 A maintainer should review changes before merging. Repository administrators must configure GitHub branch protection separately to enforce this process.
+
+## Automated checks
+
+Install `requirements-dev.txt` in a virtual environment, then run `python scripts/validate.py` and `python -m unittest discover -s tests -v`. CI runs the same checks. The validator checks skill naming, required YAML fields, nonempty instructions, portable local Markdown links, and unsupported symlinks. It does not validate remote URLs, compile AL, or prove that an assistant follows the skill correctly.
+
+Add the skill to the README catalog. Keep substantial guidance in linked references and document new executable dependencies. Preserve source attribution and applicable licenses when importing third-party material. Git history tracks contributors; personal profiles and per-skill changelogs are optional.
+
+You may improve another contributor's skill through a reviewed pull request. An advance proposal is useful for large changes but is not required for routine fixes. Do not copy upstream mandatory questionnaires or approval stages unless the Edhate workflow actually requires them.

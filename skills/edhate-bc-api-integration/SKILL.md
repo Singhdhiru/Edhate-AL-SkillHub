@@ -40,3 +40,11 @@ Compile with the project's available tools. Check representative success and fai
 State which checks ran and which require a connected environment. Provide setup instructions without secrets, relevant mappings, and recovery notes proportional to the change.
 
 A request to generate or review code does not itself authorize deployment or live data changes. Follow the user's existing authorization for those actions.
+
+## Focused references
+
+Read only the reference needed for the current task:
+
+- [Outbound integration decisions](references/outbound.md) for external calls, retries, and checkpoints.
+- [Inbound integration decisions](references/inbound.md) for API contracts, permissions, and compatibility.
+- [Integration verification](references/verification.md) when selecting implementation checks.

@@ -1,59 +1,71 @@
 # Edhate AL SkillHub
 
-A shared collection of AI skills for Microsoft Dynamics 365 Business Central AL development, maintained by the Edhate team.
+Shared AI skills for Microsoft Dynamics 365 Business Central AL development. Developers can install skills into their projects, pull updates, and contribute improvements through pull requests.
 
-Skills provide reusable instructions for an AI coding assistant. Each skill is an independent folder containing a `SKILL.md` file and, where useful, supporting references, scripts, or templates.
+## Skill catalog
 
-## Available skills
-
-| Skill | Purpose |
+| Skill | Use it for |
 | --- | --- |
-| [edhate-bc-api-integration](skills/edhate-bc-api-integration/SKILL.md) | Guide inbound and outbound Business Central API integration work. |
+| [edhate-bc-api-integration](skills/edhate-bc-api-integration/SKILL.md) | Inbound APIs, outbound HTTP calls, authentication decisions, synchronization, and failure recovery |
 
-The initial integration skill provides general guidance. Add approved Edhate engineering standards through reviewed contributions; no customer-specific conventions are assumed.
+This collection currently contains one independently maintained skill. Its guidance adapts to the consuming project; company-specific standards must be documented before they are treated as requirements.
 
-## Repository layout
+## Get started
 
-```text
-skills/                         Reusable, installable skills
-  edhate-bc-api-integration/
-    SKILL.md
-templates/                     Starting points for new contributions
-.github/                        Pull request template
-CONTRIBUTING.md                 Contribution and review process
-```
-
-## Get the collection
-
-Clone the shared repository:
+Requires Python 3.10 or later for the installer and validation tools, plus Git to clone and update.
 
 ```bash
 git clone https://github.com/Singhdhiru/Edhate-AL-SkillHub.git
 cd Edhate-AL-SkillHub
+python3 scripts/install.py --destination /path/to/your/assistant/skills --all --dry-run
+python3 scripts/install.py --destination /path/to/your/assistant/skills --all
 ```
 
-Download approved updates with `git pull --ff-only` when your working tree is clean. Commit your contributions on a separate branch before updating.
+Replace the destination with the skill directory supported by your assistant. On Windows, use `python` if `python3` is unavailable. For a Codex personal installation, you can supply `--destination ~/.codex/skills`. Verify discovery and reload requirements for your assistant. No editor extension is required by this installer.
 
-## Install and use
+Install just one skill using `--skill edhate-bc-api-integration` instead of `--all`. The installer copies the entire skill package, including references. It refuses existing destination folders and symlinks and supports a preview with `--dry-run`.
 
-Cloning this repository alone does not install its skills. Copy the individual skill folders from `skills/` into the skill directory supported by your AI coding assistant. Consult that assistant's documentation for discovery and reload requirements.
+After installation, try:
 
-For Codex, an example personal installation is to copy `skills/edhate-bc-api-integration` into `~/.codex/skills/`. Check for an existing folder before copying so local changes are preserved. After pulling repository updates, refresh your installed copy too.
+> Use the edhate-bc-api-integration skill to implement this integration using the supplied API contract and this project's AL conventions.
 
-Example request after installation:
+## Update an installation
 
-> Use $edhate-bc-api-integration to implement this Business Central integration using the project's conventions and the supplied API documentation.
+1. Commit any contributions on a separate branch and update a clean checkout with `git pull --ff-only`.
+2. Compare the repository skill with your installed copy.
+3. Back up and move the old installed folder outside your assistant's skill directory.
+4. Run the installer again and follow your assistant's reload process.
 
-Supply the project requirements and API contract. Keep credentials outside prompts and skill files.
+Updates are deliberate: pulling this repository does not refresh previously copied skills. Existing installations are never overwritten by the installer.
 
-## Contribute
+## Contribute and validate
 
-Team members can improve an existing skill or add a new folder under `skills/`. See [CONTRIBUTING.md](CONTRIBUTING.md) and the [skill template](templates/SKILL.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [templates/SKILL.md](templates/SKILL.md). Team members and external contributors can propose changes through pull requests.
 
-## Publishing and ownership
+```bash
+python3 -m venv .venv
+# macOS/Linux:
+.venv/bin/python -m pip install -r requirements-dev.txt
+.venv/bin/python scripts/validate.py
+.venv/bin/python -m unittest discover -s tests -v
+```
 
-Repository: https://github.com/Singhdhiru/Edhate-AL-SkillHub
+On Windows, use `.venv\Scripts\python.exe` in place of `.venv/bin/python`.
 
-This collection is intended for public sharing. Maintainers should invite contributors and configure protection for `main` to require pull request review.
+GitHub Actions runs structural validation and tool tests on pushes and pull requests. These checks do not prove AL correctness or assistant behavior. Include a realistic skill evaluation in contributions.
 
-Add a CODEOWNERS file once the actual maintainer usernames or team are known. Choose a license before inviting external reuse; this starter does not grant an open-source license.
+## Layout
+
+```text
+skills/          Installable skill packages and focused references
+scripts/         Installer and structural validator
+tests/           Installer and validator behavior tests
+templates/       Starter for new skills
+.github/         Automated checks and pull request template
+```
+
+## Maintenance and attribution
+
+The maintainer should configure branch protection to require review and successful checks. The workflow file alone does not enforce merge restrictions.
+
+See [ACKNOWLEDGEMENTS.md](ACKNOWLEDGEMENTS.md) for the installed collection that informed this design. Edhate's original contributions do not yet have an open-source license; choose one before promising unrestricted reuse. Never submit customer secrets or private exports.
